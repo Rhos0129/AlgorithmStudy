@@ -1,27 +1,11 @@
 def solution(dirs):
-    # 경로 기록하기
-    history = []
-    curLoc = [0, 0]
-    for c in dirs:
-        nextLoc = curLoc.copy()
-        if c == 'U' and curLoc[1] < 5:
-            nextLoc[1] += 1
-        elif c == 'D' and curLoc[1] > -5:
-            nextLoc[1] -= 1
-        elif c == 'R' and curLoc[0] < 5:
-            nextLoc[0] += 1
-        elif c == 'L' and curLoc[0] > -5:
-            nextLoc[0] -= 1
-
-        if curLoc != nextLoc:
-            history.append([curLoc, nextLoc])
-
-        curLoc = nextLoc
-
-    # 처음 걸어본 길 카운트
-    cnt = 0
-    for idx, item in enumerate(history):
-        if item not in history[:idx] and item[::-1] not in history[:idx]:
-            cnt += 1
-
-    return cnt
+    s = set()
+    d = {'U': (0,1), 'D': (0, -1), 'R': (1, 0), 'L': (-1, 0)}
+    x, y = 0, 0
+    for i in dirs:
+        nx, ny = x + d[i][0], y + d[i][1]
+        if -5 <= nx <= 5 and -5 <= ny <= 5:
+            s.add((x,y,nx,ny))
+            s.add((nx,ny,x,y))
+            x, y = nx, ny
+    return len(s)//2

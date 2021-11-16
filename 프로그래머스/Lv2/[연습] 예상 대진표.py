@@ -1,14 +1,9 @@
-import math
-
 def solution(n,a,b):
 
-    round=1
-    while True :
-        if abs(a-b)==1 and min(a, b)%2==1 and max(a, b)%2==0:
-            break
+    round=0
 
-        a=math.ceil(a/2)
-        b=math.ceil(b/2)
-        round+=1
+    while a != b:
+        round += 1
+        a, b = (a + 1) // 2, (b + 1) // 2
 
     return round
